@@ -6,7 +6,7 @@ PHSX 861 Project - SUSY analysis design for top squark pair production in the al
 git clone git@github.com:anazario/HadronicStopAnalysis.git
 cd HadronicStopAnalysis
 mkdir obj/
-make - j4
+make -j4
 ```
 ### Produce reduced nTuple:
 ```
