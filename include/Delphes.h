@@ -11,6 +11,8 @@
 #include <TROOT.h>
 #include <TChain.h>
 #include <TFile.h>
+#include <TRef.h>
+#include <TRefArray.h>
 
 // Header file for the classes stored in the TTree if any.
 #include "TClonesArray.h"
@@ -813,13 +815,7 @@ public :
    Delphes(TTree *tree=0);
    virtual ~Delphes();
 
-   virtual Int_t    Cut(Long64_t entry);
-   virtual Int_t    GetEntry(Long64_t entry);
-   virtual Long64_t LoadTree(Long64_t entry);
    virtual void     Init(TTree *tree);
-   //virtual void     Loop();
-   virtual Bool_t   Notify();
-   virtual void     Show(Long64_t entry = -1);
    
 };
 
@@ -827,7 +823,7 @@ public :
 #endif
 
 //#ifdef Delphes_cxx
-Delphes::Delphes(TTree *tree) : fChain(0) 
+inline Delphes::Delphes(TTree *tree) : fChain(0) 
 {
 // if parameter tree is not specified (or zero), connect the file
 // used to generate this class and read the Tree.
@@ -842,32 +838,13 @@ Delphes::Delphes(TTree *tree) : fChain(0)
    Init(tree);
 }
 
-Delphes::~Delphes()
+inline Delphes::~Delphes()
 {
    if (!fChain) return;
    delete fChain->GetCurrentFile();
 }
 
-Int_t Delphes::GetEntry(Long64_t entry)
-{
-// Read contents of entry.
-   if (!fChain) return 0;
-   return fChain->GetEntry(entry);
-}
-Long64_t Delphes::LoadTree(Long64_t entry)
-{
-// Set the environment to read one entry
-   if (!fChain) return -5;
-   Long64_t centry = fChain->LoadTree(entry);
-   if (centry < 0) return centry;
-   if (fChain->GetTreeNumber() != fCurrent) {
-      fCurrent = fChain->GetTreeNumber();
-      Notify();
-   }
-   return centry;
-}
-
-void Delphes::Init(TTree *tree)
+inline void Delphes::Init(TTree *tree)
 {
    // The Init() function is called when the selector needs to initialize
    // a new tree or chain. Typically here the branch addresses and branch
@@ -1266,35 +1243,4 @@ void Delphes::Init(TTree *tree)
    fChain->SetBranchAddress("ScalarHT.fBits", ScalarHT_fBits, &b_ScalarHT_fBits);
    fChain->SetBranchAddress("ScalarHT.HT", ScalarHT_HT, &b_ScalarHT_HT);
    fChain->SetBranchAddress("ScalarHT_size", &ScalarHT_size, &b_ScalarHT_size);
-   Notify();
-
-   fChain->SetBranchStatus("*",0);
-   fChain->SetBranchStatus("Jet_size",1);
 }
-
-Bool_t Delphes::Notify()
-{
-   // The Notify() function is called when a new file is opened. This
-   // can be either for a new TTree in a TChain or when when a new TTree
-   // is started when using PROOF. It is normally not necessary to make changes
-   // to the generated code, but the routine can be extended by the
-   // user if needed. The return value is currently not used.
-
-   return kTRUE;
-}
-
-void Delphes::Show(Long64_t entry)
-{
-// Print contents of entry.
-// If entry is not specified, print current entry
-   if (!fChain) return;
-   fChain->Show(entry);
-}
-Int_t Delphes::Cut(Long64_t entry)
-{
-// This function may be called from Loop.
-// returns  1 if entry is accepted.
-// returns -1 otherwise.
-   return 1;
-}
-//#endif // #ifdef Delphes_cxx
