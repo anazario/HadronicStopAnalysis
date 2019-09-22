@@ -16,6 +16,7 @@ OUTOBJ	         = ./obj/
 
 CC_FILES := $(wildcard src/*.cc)
 H_FILES := $(wildcard include/*.h)
+OBJDIR := $(OUTOBJ)
 OBJ_FILES := $(addprefix $(OUTOBJ),$(notdir $(CC_FILES:.cc=.o)))
 
 all: reduceTuple.x makePlots.x
@@ -30,6 +31,11 @@ makePlots.x: $(SRCDIR)makePlots.C $(OBJ_FILES) $(H_FILES)
 
 $(OUTOBJ)%.o: src/%.cc include/%.h
 	$(CXX) $(CXXFLAGS) -c $< -o $@
+
+$(OBJ_FILES): | $(OBJDIR)
+
+$(OBJDIR):
+	mkdir -p $(OBJDIR)
 
 clean:
 	rm -f $(OUTOBJ)*.o 
