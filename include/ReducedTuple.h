@@ -32,6 +32,7 @@ class ReducedTuple : public Delphes{
   TString outFileName;
   vector<TString> inFileName;
 
+  //Reduced nTuple content
   Int_t nElectrons;
   Int_t nMuons;
   Int_t nPhotons;
