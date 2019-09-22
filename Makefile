@@ -26,7 +26,7 @@ reduceTuple.x: $(SRCDIR)reduceTuple.C $(OBJ_FILES) $(H_FILES)
 	$(CXX) $(CXXFLAGS) -o reduceTuple.x $(OUTOBJ)*.o $(GLIBS) $ $<
 	touch reduceTuple.x
 
-makePlots.x: $(SRCDIR)makePlot_test.C $(OBJ_FILES) $(H_FILES)
+makePlots.x: $(SRCDIR)makePlots.C $(OBJ_FILES) $(H_FILES)
 	$(CXX) $(CXXFLAGS) -o makePlots.x $(OUTOBJ)*.o $(GLIBS) $ $<
 	touch makePlots.x
 

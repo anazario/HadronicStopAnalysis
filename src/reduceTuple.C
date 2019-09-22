@@ -5,6 +5,11 @@
 
 int main(int argc, char *argv[]){
 
+  if(gSystem->OpenDirectory("ROOT") == 0){
+    gSystem->mkdir("ROOT");
+    cout << "Created ROOT folder." << endl;
+  }
+
   if(argc < 2){
     cout << "Please specify sample name and input file." << endl;
     printf("For usage information type: %s -h\n", argv[0]);

@@ -6,6 +6,9 @@
 
 int main(int argc, char *argv[]){
 
+  if(gSystem->OpenDirectory("plots") == 0)
+    gSystem->mkdir("plots");
+
   if(argc < 2){
     cout << "Please specify input file." << endl;
     printf("For usage information type: %s -h\n", argv[0]);
