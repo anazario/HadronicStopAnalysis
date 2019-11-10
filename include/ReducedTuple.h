@@ -37,12 +37,23 @@ class ReducedTuple : public Delphes{
   Int_t nMuons;
   Int_t nPhotons;
   Int_t nJets;
+  Int_t nBJets;
+  Int_t nMet;
+  Int_t nHT;
+
+  vector<Int_t> electron_charge;
+  vector<Int_t> muon_charge;
+
+  vector<Float_t> met;
+  vector<Float_t> met_eta;
+  vector<Float_t> met_phi;
+  vector<Float_t> ht;
 
   vector<TLorentzVector> photons;
   vector<TLorentzVector> electrons;
   vector<TLorentzVector> muons;
-  vector<TLorentzVector> met;
   vector<TLorentzVector> jets;
+  vector<TLorentzVector> bJets;
 
   void InitBranches();
 
